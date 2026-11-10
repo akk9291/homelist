@@ -19,14 +19,22 @@
             @endif
         </div>
 
-        @if($property->featured)
-            <div class="absolute top-4 right-4">
-                <span class="bg-yellow-400 text-slate-950 text-[10px] font-black px-3 py-1.5 rounded-xl shadow-lg flex items-center gap-1">
+        <div class="absolute top-4 right-4 flex items-center gap-1.5">
+            <span class="bg-slate-950/75 backdrop-blur-md text-white text-[10px] font-bold px-2.5 py-1.5 rounded-xl shadow-md flex items-center gap-1">
+                <svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                </svg>
+                <span>{{ number_format($property->views ?? 0) }}</span>
+            </span>
+
+            @if($property->featured)
+                <span class="bg-yellow-400 text-slate-950 text-[10px] font-black px-2.5 py-1.5 rounded-xl shadow-lg flex items-center gap-1">
                     <svg class="w-3.5 h-3.5 fill-current text-slate-950" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
                     FEATURED
                 </span>
-            </div>
-        @endif
+            @endif
+        </div>
     </div>
 
     <!-- Card Body -->

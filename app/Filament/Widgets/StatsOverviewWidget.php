@@ -19,12 +19,24 @@ class StatsOverviewWidget extends BaseWidget
         $activeSubs = UserSubscription::where('status', 'active')->count();
         $totalProperties = Property::count();
         $totalAgents = Agent::count();
+        $totalWebsiteViews = \App\Models\Setting::current()?->website_views ?? 0;
+        $totalInquiries = \App\Models\PropertyInquiry::count();
 
         return [
-            Stat::make('Total Revenue', 'INR ' . number_format($totalRevenue, 2))
+            Stat::make('Total Revenue', '₹' . number_format($totalRevenue, 2))
                 ->description('Sum of completed transactions')
                 ->descriptionIcon('heroicon-m-banknotes')
                 ->color('success'),
+
+            Stat::make('Website Traffic', number_format($totalWebsiteViews) . ' Views')
+                ->description('Total portal visitors')
+                ->descriptionIcon('heroicon-m-eye')
+                ->color('primary'),
+
+            Stat::make('Total Leads / Inquiries', number_format($totalInquiries))
+                ->description('Customer property inquiries')
+                ->descriptionIcon('heroicon-m-chat-bubble-bottom-center-text')
+                ->color('info'),
 
             Stat::make('Active Subscriptions', $activeSubs)
                 ->description('Total active agent subscriptions')

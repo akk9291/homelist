@@ -65,6 +65,17 @@ class AgentResource extends Resource
                 Tables\Columns\TextColumn::make('phone')
                     ->searchable(),
 
+                Tables\Columns\SelectColumn::make('kyc_status')
+                    ->label('KYC Status')
+                    ->options([
+                        'pending' => 'Pending',
+                        'verified' => 'Verified',
+                        'rejected' => 'Rejected',
+                    ]),
+
+                Tables\Columns\ToggleColumn::make('is_verified')
+                    ->label('Verified Badge'),
+
                 Tables\Columns\TextColumn::make('properties_count')
                     ->label('Listings')
                     ->counts('properties'),

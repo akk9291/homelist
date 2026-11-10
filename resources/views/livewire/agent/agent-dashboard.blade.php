@@ -171,6 +171,13 @@
                                             <span class="absolute top-3 left-3 px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider shadow {{ $prop->published ? 'bg-green-500 text-white' : 'bg-slate-500 text-white' }}">
                                                 {{ $prop->published ? 'Published' : 'Draft' }}
                                             </span>
+                                            <span class="absolute top-3 right-3 bg-slate-950/80 backdrop-blur-md text-white text-[10px] font-bold px-2 py-0.5 rounded-lg shadow flex items-center gap-1">
+                                                <svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                                </svg>
+                                                {{ number_format($prop->views ?? 0) }} Views
+                                            </span>
                                         </div>
                                         <div class="p-5 flex-grow flex flex-col justify-between space-y-4">
                                             <div>
@@ -558,7 +565,23 @@
                 @if($activeTab === 'inquiries')
                     <div>
                         <h2 class="text-2xl font-black text-slate-900 dark:text-white mb-6">Property Leads & inquiries</h2>
-                        @if($inquiries->isEmpty())
+                        @if(!auth()->user()->hasActiveSubscription())
+                            <div class="bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900/50 rounded-3xl p-8 text-center max-w-2xl mx-auto my-6 shadow-sm">
+                                <div class="w-16 h-16 bg-amber-500/10 text-amber-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                                    </svg>
+                                </div>
+                                <h3 class="text-xl font-black text-slate-900 dark:text-white mb-2">Subscription Required</h3>
+                                <p class="text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+                                    Lead inquiries ko dekhne aur directly buyers se connect karne ke liye active subscription plan zaroori hai. Aapki properties par aane wali inquiries filhal secure hain.
+                                </p>
+                                <a href="{{ route('subscription.checkout') }}" class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-white font-bold px-6 py-3 rounded-xl shadow-lg shadow-amber-500/20 transition-all text-sm">
+                                    <span>Activate Subscription Plan</span>
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                                </a>
+                            </div>
+                        @elseif($inquiries->isEmpty())
                             <div class="text-center py-12 bg-slate-50 dark:bg-slate-700/20 rounded-3xl border border-slate-100 dark:border-slate-800 text-slate-400 dark:text-slate-500">
                                 No inquiries submitted on your properties yet.
                             </div>

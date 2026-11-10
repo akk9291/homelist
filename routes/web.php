@@ -24,6 +24,7 @@ use App\Livewire\PropertyCompare;
 Route::get('/', HomeController::class)->name('home');
 
 Route::get('/properties', [PropertyController::class, 'index'])->name('properties.index');
+Route::get('/properties/{slug}/brochure', [PropertyController::class, 'brochure'])->name('properties.brochure');
 Route::get('/properties/{slug}', [PropertyController::class, 'show'])->name('properties.show');
 Route::get('/search', [PropertyController::class, 'search'])->name('properties.search');
 Route::post('/inquiry', [PropertyController::class, 'inquiry'])->name('properties.inquiry');

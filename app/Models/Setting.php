@@ -28,6 +28,7 @@ class Setting extends Model
         'social_linkedin',
         'map_embed_code',
         'footer_text',
+        'website_views',
         'mail_host',
         'mail_port',
         'mail_username',

@@ -533,7 +533,12 @@ class AgentDashboard extends Component
         $propertiesCount = Property::where('agent_id', $user->id)->count();
         $publishedCount = Property::where('agent_id', $user->id)->where('published', true)->count();
         $draftCount = Property::where('agent_id', $user->id)->where('published', false)->count();
-        $inquiriesCount = PropertyInquiry::whereIn('property_id', Property::where('agent_id', $user->id)->pluck('id'))->count();
+        
+        $hasSubscription = $user->hasActiveSubscription();
+        $inquiriesCount = $hasSubscription 
+            ? PropertyInquiry::whereIn('property_id', Property::where('agent_id', $user->id)->pluck('id'))->count()
+            : 0;
+            
         $bookingsCount = PropertyBooking::whereIn('property_id', Property::where('agent_id', $user->id)->pluck('id'))->count();
         $walletBalance = $user->wallet?->balance ?? 0.00;
 
@@ -546,11 +551,13 @@ class AgentDashboard extends Component
             ->latest()
             ->get();
 
-        // 4. Inquiries / Leads
-        $inquiries = PropertyInquiry::whereIn('property_id', Property::where('agent_id', $user->id)->pluck('id'))
-            ->with('property')
-            ->latest()
-            ->get();
+        // 4. Inquiries / Leads (Only visible to agent if subscription is active)
+        $inquiries = $hasSubscription 
+            ? PropertyInquiry::whereIn('property_id', Property::where('agent_id', $user->id)->pluck('id'))
+                ->with('property')
+                ->latest()
+                ->get()
+            : collect();
 
         // 5. Reviews
         $reviews = Review::whereIn('property_id', Property::where('agent_id', $user->id)->pluck('id'))

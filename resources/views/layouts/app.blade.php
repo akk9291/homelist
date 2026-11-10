@@ -235,8 +235,15 @@
                 </ul>
             </div>
         </div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 pt-8 border-t border-slate-900 text-center text-sm text-slate-500">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 pt-8 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-500">
             <p>&copy; {{ date('Y') }} {{ $settings->site_name ?? 'Homelist' }} Real Estate Portal. All rights reserved.</p>
+            <div class="inline-flex items-center gap-2 bg-slate-900/90 text-slate-400 border border-slate-800 px-3.5 py-1.5 rounded-full text-xs font-medium">
+                <svg class="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                </svg>
+                <span>Total Website Views: <strong class="text-white font-bold">{{ number_format($settings->website_views ?? 0) }}</strong></span>
+            </div>
         </div>
     </footer>
 

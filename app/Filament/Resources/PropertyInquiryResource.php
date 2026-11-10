@@ -53,6 +53,19 @@ class PropertyInquiryResource extends Resource
                     ->sortable()
                     ->limit(35),
 
+                Tables\Columns\TextColumn::make('property.agent.name')
+                    ->label('Assigned Agent')
+                    ->placeholder('Unassigned')
+                    ->searchable()
+                    ->sortable(),
+
+                Tables\Columns\IconColumn::make('agent_subscription')
+                    ->label('Agent Subscribed')
+                    ->state(function (PropertyInquiry $record): bool {
+                        return (bool) $record->property?->agent?->hasActiveSubscription();
+                    })
+                    ->boolean(),
+
                 Tables\Columns\TextColumn::make('name')
                     ->label('Contact Name')
                     ->searchable()
